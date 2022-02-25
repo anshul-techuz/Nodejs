@@ -1,16 +1,16 @@
 const fs = require("fs");
 const path = require("path");
-const p = path.join(
-  path.dirname(process.mainModule.filename),
-  "data",
-  "products.json"
-);
+const Cart = require("../models/cart");
+const p = path.join(__dirname, "../", "data", "products.json");
+
 const getProductsFromFile = (cb) => {
   fs.readFile(p, (err, fileContent) => {
     if (err) {
       return cb([]);
     } else {
-      cb(JSON.parse(fileContent));
+      console.log("in else");
+
+      return cb(JSON.parse(fileContent));
     }
   });
 };
@@ -24,6 +24,7 @@ module.exports = class Product {
     this.price = price;
   }
   save() {
+    console.log("save");
     getProductsFromFile((products) => {
       if (this.id) {
         const existingProductIndex = products.findIndex(
@@ -48,10 +49,11 @@ module.exports = class Product {
   }
   static deleteById(id) {
     getProductsFromFile((products) => {
+      const product = products.find((prod) => prod.id === id);
       const updatedProducts = products.filter((p) => p.id !== id);
       fs.writeFile(p, JSON.stringify(updatedProducts), (err) => {
         if (!err) {
-          console.log("Hogaya");
+          Cart.deleteProduct(id, product.price);
         }
       });
     });

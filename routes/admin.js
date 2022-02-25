@@ -11,7 +11,7 @@ const { Module } = require("module");
 router.get("/add-product", adminContollers.getAddProduct);
 router.post("/edit-product", adminContollers.postEditProducts);
 router.get("/edit-product/:productid", adminContollers.getEditProduct);
-router.post("/delete=product", adminContollers.postDeleteProduct);
+router.post("/delete-product", adminContollers.postDeleteProduct);
 
 // /admin/products ==> GET
 

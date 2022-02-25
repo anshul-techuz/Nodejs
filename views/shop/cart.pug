@@ -9,17 +9,16 @@ block content
                 each product in prods
                     article.card.product-item
                         header.card__header
-                            h1.product__title #{product.title}
-                        div.card__image
-                            img(src=product.imageUrl, alt=product.title)
+                            h1.product__title #{product.productData.title}
                         div.card__content
-                            h2.product__price $#{product.price}
-                            p.product__description #{product.description}
+                            h2.product__price $#{product.productData.price}
+                            p.product__description #{product.productData.description}
+                            h1.product_price #{product.qty}
                         .card__actions
-                             a(href="/products/"+product.id).btn Details
-                             form(action="/cart" method="POST") 
-                                 button.btn( type="submit") Add to Cart
-                                 input(type="hidden" name="productId" value=product.id)     
-            h1 #{price}     
+                             form(action="/cart-delete-item" method="POST") 
+                                 button.btn( type="submit") Remove From Cart
+                                 input(type="hidden" name="productId" value=product.productData.id)     
+            hr
+            h1.product-item  Total Cart Value #{price}     
         else
-            h1 No Products
+            h1 No Products in cart
