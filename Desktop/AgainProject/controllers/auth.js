@@ -10,8 +10,8 @@ const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 25,
   auth: {
-    user: "anshul@techuz.com",
-    pass: "Anshul@9413",
+    user: "",
+    pass: "",
   },
 });
 exports.signup = async (req, res, next) => {
